@@ -19,13 +19,17 @@ K = 2*ut/sqrt(deltah0s);
 %Plot the Balije line and the ns*ds line
 nsi = logspace(log10(min(ns)),log10(max(ns)),1000);
 dsi = f(nsi);
-loglog(nsi,dsi,nsi,K./nsi); grid on
+loglog(nsi,dsi,nsi,K./nsi,'LineWidth',2.5); grid on
+grid on
 xlabel('n_s'); ylabel('d_s');
+
 
 %Intersection of both lines
 ns_star = fzero(@(x) f(x) - K/x, [0.5 10]);
 ds_star = f(ns_star);
 hold on; loglog(ns_star,ds_star,'ko');
+legend('Balije curve', 'Fan line','Intersect')
+saveas(gcf,'Balije-Fan.png')
 
 %Diameter and speed
 D = ds_star*sqrt(Q)/deltah0s^0.25;    % [m]
